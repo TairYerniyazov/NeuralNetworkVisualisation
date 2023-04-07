@@ -4,6 +4,11 @@ Script visualising neural networks with different parameters (PostScript).
 <li>/nodes [3 4 6 12 9 4 1] def
 <li>/numberOfLayers 7 def
 
+## Export to PDF
+You can run the script to export the generated picture to PDF using:
+  <li> MacGhostView & XQuartz (MacOS)
+  <li> Online PDF to PS converter (e.g. XConvert: https://www.xconvert.com/convert-ps-to-pdf)
+
 ## Samples
 <img src="https://github.com/TairYerniyazov/NeuralNetworkVisualisation/blob/main/sample_0.png" width="959" height="674">
 <img src="https://github.com/TairYerniyazov/NeuralNetworkVisualisation/blob/main/sample_1.png" width="426" height="399">
