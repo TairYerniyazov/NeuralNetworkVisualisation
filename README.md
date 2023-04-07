@@ -10,6 +10,6 @@ You can run the script to export the generated picture to PDF using:
   <li> Online PDF to PS converter (e.g. XConvert: https://www.xconvert.com/convert-ps-to-pdf)
 
 ## Samples
-<img src="https://github.com/TairYerniyazov/NeuralNetworkVisualisation/blob/main/sample_0.png" width="959" height="674">
-<img src="https://github.com/TairYerniyazov/NeuralNetworkVisualisation/blob/main/sample_1.png" width="426" height="399">
-<img src="https://github.com/TairYerniyazov/NeuralNetworkVisualisation/blob/main/sample_2.png" width="423" height="453">
+<img src="https://github.com/TairYerniyazov/NeuralNetworkVisualisation/blob/main/sample_0.png" width="80%">
+<img src="https://github.com/TairYerniyazov/NeuralNetworkVisualisation/blob/main/sample_1.png" width="40%">
+<img src="https://github.com/TairYerniyazov/NeuralNetworkVisualisation/blob/main/sample_2.png" width="40%">
