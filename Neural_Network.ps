@@ -1,0 +1,106 @@
+% >>> TAIR YERNIYAZOV, KRAKÓW, 05.04.2023
+
+% ====================================== Zmienne ========================================
+
+/initialLineWidth 0.1 def               % Grubość krawędzi
+/boldLineWidth 0.8 def                  % Grubość pierwszej i ostatniej warstw "weights"
+
+/OX 50 def                              
+/OY 350 def
+OX OY translate                         % Pozycja I neurona I warstwy (punkt odniesienia)
+                       
+/nodes [3 4 6 12 9 4 1] def             % TABLICA ZAWIERAJĄCA LICZBĘ NEURONÓW W WARSTWACH
+/numberOfLayers 7 def                   % LICZBA WARSTW (W TYM INPUT/OUTPUT)
+
+/layer 0 def                            % Zmienne pomocnicze (przesunięcia, liczniki)
+/nodeIndex 0 def
+/verPos 0 def                       
+/horPos 0 def
+/horShift 80 def 
+
+
+% ====================================== Procedury ======================================
+
+% =========== Procedura rysująca pojedynczy neuron ===========
+/draw_neuron {
+    /y exch def
+    /x exch def
+    0.6 0.8 1 setrgbcolor
+    x y 10 0 360 arc fill
+    0 0 0 setrgbcolor
+    /tempOY OY def
+    layer numberOfLayers 1 sub lt {
+        /tempOY tempOY nodeIndex 30 mul sub def
+        nodes layer 1 add get {
+            x y moveto 
+            % ======== ostatni wektor Weights ========
+            layer numberOfLayers 2 sub eq {
+                boldLineWidth setlinewidth
+                0.2 0.6 0.4 setrgbcolor
+                horShift tempOY rlineto stroke
+            } if
+            % ======== pierwszy wektor Weights ========
+            layer 0 eq {
+                boldLineWidth setlinewidth
+                1 0 0 setrgbcolor
+                horShift tempOY rlineto stroke
+            } if
+            % ======= pozostałe warstwa Weights =======
+            layer numberOfLayers 2 sub ne layer 0 ne and {
+                initialLineWidth setlinewidth
+                horShift tempOY rlineto stroke
+            } if
+            newpath
+            /tempOY tempOY 30 add def
+        } repeat
+    } if
+} def
+
+% ======= Procedura przygotowująca przesunięcie przed ========
+% ============== rysowaniem kolejnej warstwy =================
+/prepareNextLayerPosition {
+    layer numberOfLayers 1 sub lt {
+        /OY nodes layer get nodes layer 1 add get sub abs 2 div 1 add 20 mul def
+        nodes layer 1 add get nodes layer get le {
+            /OY OY def
+        } {
+            /OY OY neg def
+        } ifelse
+        /OX OX 40 add def
+    } if
+} def
+
+
+% ==================== Główna część (analog Main() w C++) ===============
+initialLineWidth setlinewidth
+
+% ============ Rysowanie samej sieci neuronowej ==============
+numberOfLayers {   
+    prepareNextLayerPosition
+
+    nodes layer get {  
+        horPos verPos draw_neuron
+        /verPos verPos 30 add def
+        /nodeIndex nodeIndex 1 add def
+    } repeat
+
+    /nodeIndex 0 def
+    /verPos 0 def
+    /horPos horPos horShift add def
+
+    0 OY translate
+
+    /layer layer 1 add def
+} repeat
+
+% =================== Rysowanie napisów ======================
+initmatrix
+/Courier-Bold findfont 50 scalefont setfont
+90 700 moveto
+(Neural Network) show
+
+/Courier findfont 25 scalefont setfont
+190 660 moveto
+(Visualisation) show
+
+showpage
